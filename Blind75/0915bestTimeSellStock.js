@@ -6,6 +6,7 @@
 // output: a number
 // constraints:
 // edge case: if the price consecutively reduces, return 0
+// complexity n^2
 
 var maxProfit = function(prices) {
   var result = 0;
