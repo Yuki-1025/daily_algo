@@ -20,3 +20,23 @@ var twoSum = function(nums, target) {
   }
 };
 
+//NEED REVISION
+var twoSum = function(nums, target) {
+  var start = 0;
+  var end = nums.length - 1;
+  if (nums[start] + nums[end] === target) {
+    return [start, end];
+  }
+  if (nums[start] + nums[end] > target) {
+    //end --;
+    nums.pop();
+    //console.log(nums);
+    return twoSum(nums, target);
+  }
+  if (nums[start] + nums[end] < target) {
+    //start ++;
+    nums.shift();
+    return twoSum(nums, target);
+  }
+};
+
