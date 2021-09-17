@@ -7,6 +7,23 @@
 // contraints: length > 0
 // edge cases: [] no empty array; [1] => return 1; the array itself can also be a subarray
 
+// O(n)
+var maxSubArray = function(nums) {
+  // create a new array to store largest sum
+  var largest = [];
+  largest[0] = nums[0];
+
+  for (let i = 1; i < nums.length; i ++) {
+      if (largest[i - 1] + nums[i] > nums[i]) {
+          largest[i] = largest[i - 1] + nums[i];
+      } else {
+          largest[i] = nums[i]
+      }
+  }
+
+  return Math.max(...largest);
+};
+
 // O(n^3)
 var maxSubArray = function(nums) {
   // start of subarray
