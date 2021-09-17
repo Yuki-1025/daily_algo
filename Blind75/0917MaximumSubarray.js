@@ -24,7 +24,7 @@ var maxSubArray = function(nums) {
   return Math.max(...largest);
 };
 
-// O(n^3)
+// O(n^2)
 var maxSubArray = function(nums) {
   // start of subarray
   var result = nums[0];

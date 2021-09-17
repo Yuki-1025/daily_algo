@@ -24,3 +24,17 @@ var maxProduct = function(nums) {
   }
   return result;
 };
+
+//O(n)
+var maxProduct = function(nums) {
+  var biggest = [], smallest = [];
+  biggest[0] = nums[0];
+  smallest[0] = nums[0];
+
+  for (let i = 1; i < nums.length; i ++) {
+      biggest[i] = Math.max(biggest[i-1] * nums[i], smallest[i-1] * nums[i], nums[i]);
+      smallest[i] = Math.min(biggest[i-1] * nums[i], smallest[i-1] * nums[i], nums[i]);
+  }
+
+  return Math.max(...biggest);
+};
