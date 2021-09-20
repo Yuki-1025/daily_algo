@@ -15,6 +15,8 @@
 // constraints: logn
 // edge cases: []
 
+//O(log n)
+
 var findMin = function(nums) {
   // edge cases
   if (nums.length === 1) {
