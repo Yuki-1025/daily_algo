@@ -12,6 +12,7 @@
 // constraint: log n
 // edgecases:
 
+// =====RECURSION ============================
 var search = function(nums, target) {
   // find the mid point
   var mid = Math.floor((nums.length - 1) / 2);
@@ -61,4 +62,48 @@ var search = function(nums, target) {
       }
   }
 
+};
+
+// ===== ITERATION ============================
+var search = function(nums, target) {
+  // iteration
+  var start = 0, end = nums.length - 1;
+  while (start <= end) {
+      //console.log('END ', end);
+      //console.log('START ', start);
+      let mid = Math.floor((start + end) / 2);
+      if (target === nums[start]) {
+          return start;
+      }
+      if (target === nums[end]) {
+          return end;
+      }
+      if (target === nums[mid]) {
+          return mid;
+      }
+      if (end - start < 3) {
+          return -1;
+      }
+      if (nums[mid] > nums[start]) {
+          if (target < nums[start] || target > nums[mid]) {
+              // search right
+              start = mid + 1;
+              //console.log('START 2 ', start);
+              //console.log('end - start ', end - start);
+          } else if (target > nums[start] && target < nums[mid]) {
+              // search left
+              end = mid - 1;
+          }
+      } else if (nums[mid] < nums[start]) {
+          if (target < nums[mid] || target > nums[start]) {
+              //search left
+              end = mid - 1;
+          } else if (target > nums[mid] && target < nums[end]) {
+              //search right
+              start = mid + 1;
+          } else {
+              return -1;
+          }
+      }
+  }
 };
