@@ -36,3 +36,38 @@ var threeSum = function(nums) {
 
   return arr;
 };
+
+// to reduce complexity O(n^2)====================================
+var threeSum = function(nums) {
+  //edge cases:
+  if (nums.length < 3) {
+    return [];
+  }
+  // sort in advance
+  nums.sort((a, b) => {
+    return a - b;
+  })
+
+  //var negative = [], positive = [];
+  var results = new Set();
+  for (let i = 0; i < nums.length - 2; i ++) {
+    let j = i + 1, k = nums.length - 1;
+    //if (i !== 0 && nums[i] === nums[i-1]){ continue; }
+    while (j < k) {
+      if (nums[i] + nums[j] + nums[k] === 0) {
+        results.add([[nums[i], nums[j], nums[k]]].toString());
+        //k --;
+        j ++;
+      } else if (nums[i] + nums[j] + nums[k] > 0) {
+        k --;
+      } else {
+        j ++;
+      }
+    }
+  }
+  var arr = [];
+  for (let r of results) {
+    arr.push(r.split(','));
+  }
+  return arr;
+};
