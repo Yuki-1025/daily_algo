@@ -33,3 +33,9 @@ var getSum = function(a, b) {
       return -Array(-b).slice(a).length;
   }
 };
+
+//=========================================================
+var getSum = function(a, b) {
+  var product = 10 ** a * 10 ** b;
+  return Math.log10(product);
+}
