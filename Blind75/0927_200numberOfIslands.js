@@ -16,15 +16,13 @@ var numIslands = function(grid) {
   //console.log('mark ', mark);
 
   const findAdjacent = ([i, j]) => {
-      if (i === 0 && j === 0) { return  [[i+1, j], [i, j+1]]; }
-      if (i === grid.length - 1 && j === 0) {return [[i-1, j], [i, j+1]];}
-      if (i === 0 && j === grid[0].length - 1) { return [[i+1, j], [i, j-1]]; }
-      if (i === grid.length - 1 && j === grid[0].length - 1) {return [[i-1, j], [i, j-1]];}
-      if (i === 0) {return [[i+1, j], [i, j-1], [i, j+1]];}
-      if (i === grid.length - 1) {return [[i-1, j], [i, j-1], [i, j+1]];}
-      if (j === 0) {return [[i-1, j], [i+1, j], [i, j+1]];}
-      if (j === grid[0].length - 1) {return [[i-1, j], [i+1, j], [i, j-1]];}
-      return [[i-1, j], [i+1, j], [i, j-1], [i, j+1]];
+      let adjpoints = [];
+      if (i - 1 >= 0) { adjpoints.push([i - 1, j]); }
+      if (i + 1 < grid.length) { adjpoints.push([i + 1, j]); }
+      if (j - 1 >= 0) { adjpoints.push([i, j - 1]); }
+      if (j + 1 < grid[0].length) { adjpoints.push([i, j + 1]); }
+
+      return adjpoints;
   }
 
   for (let i = 0; i < grid.length; i++) {
@@ -39,8 +37,8 @@ var numIslands = function(grid) {
 
               while (island.length > 0) {
                   var dirt = island.shift(), adjacents = findAdjacent(dirt);
-                  console.log('DIRT ', dirt);
-                  console.log('adjacent ', adjacents);
+                  //console.log('DIRT ', dirt);
+                  //console.log('adjacent ', adjacents);
                   for (let n = 0; n < adjacents.length; n ++) {
                       if (grid[adjacents[n][0]][adjacents[n][1]] === '1' && !mark[adjacents[n][0]][adjacents[n][1]]) {
                           mark[adjacents[n][0]][adjacents[n][1]] = true;
