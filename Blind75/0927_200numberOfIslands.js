@@ -5,6 +5,7 @@
 //You may assume all four edges of the grid are all surrounded by water.
 
 //edge cases: [[1,1,0,0,0]]; [[1], [1], [0]];
+// O(m*n);
 
 var numIslands = function(grid) {
   var count = 0;
