@@ -2,6 +2,13 @@
 
 // The solution set must not contain duplicate subsets. Return the solution in any order.
 
+// backtracking 公式
+// base case
+// for loop:
+  // result.push();
+  // recursive case
+  // result.pop();
+
 var subsets = function(nums) {
   var results = [];
   var result = [];
