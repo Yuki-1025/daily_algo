@@ -6,7 +6,36 @@
 
 // input : Tree
 // output: array of arrays
+var levelOrder = function(root) {
+  // handle edge case
+  if (root == null) {
+      return [];
+  }
+  //bfs
+  var queue = [], nextQ = [];
+  var result = [], temp = [];
+  queue.push(root);
 
+  while (queue.length > 0) {
+      var current = queue.shift();
+      temp.push(current.val);
+      if (current.left) {
+          nextQ.push(current.left)
+      }
+      if (current.right) {
+          nextQ.push(current.right)
+      }
+      if (queue.length < 1) {
+          result.push(temp);
+          queue = [...nextQ];
+          nextQ = [];
+          temp = [];
+      }
+  }
+ return result;
+};
+
+//=============================================
 var levelOrder = function(root) {
   // handle edge case
   if (root == null) {
