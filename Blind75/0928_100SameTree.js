@@ -4,6 +4,7 @@
 //same value.
 // O(n)
 
+// BFS
 var isSameTree = function(p, q) {
   //edge case
   if (p == null && q == null) {
@@ -44,4 +45,16 @@ var isSameTree = function(p, q) {
 
   }
   return true;
+};
+
+// DFS
+var isSameTree = function(p, q) {
+  //base case
+  if (!p || !q) { return !p && !q; }
+  if (p.val !== q.val) {
+    return false;
+  }
+  // recursive
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+
 };
