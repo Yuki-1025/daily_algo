@@ -2,6 +2,7 @@
 
 // Two binary trees are considered the same if they are structurally identical, and the nodes have the
 //same value.
+// O(n)
 
 var isSameTree = function(p, q) {
   //edge case
