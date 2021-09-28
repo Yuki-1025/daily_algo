@@ -7,6 +7,7 @@
 // output: number, maximum depth
 // edge cases: [] => 0;
 
+// DFS
 var maxDepth = function(root) {
   // base case
   if (root === null) {
@@ -18,6 +19,26 @@ var maxDepth = function(root) {
 
   return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
 };
+
+// BFS traversal
+var BFStraverse = function(root) {
+  if (root === null) {
+    return;
+  }
+  var q = [];
+  q.push(root);
+
+  while (q.length > 0) {
+    var chopped = q.shift();
+    console.log(chopped)
+    if (chopped.left) {
+        q.push(chopped.left);
+    }
+    if (chopped.right) {
+        q.push(chopped.right);
+    }
+  }
+}
 
 // mathematical approach
 var maxDepth = function(root) {
