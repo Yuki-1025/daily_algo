@@ -15,7 +15,7 @@
 var searchRange = function(nums, target) {
   const findFirst = (nums, target) => {
       let start = 0, end = nums.length - 1;
-      let mid = Math.floor((start + end) / 2);
+      //let mid = Math.floor((start + end) / 2);
       while (start <= end) {
           let mid = Math.floor((start + end) / 2);
           if (nums[mid] === target) {
