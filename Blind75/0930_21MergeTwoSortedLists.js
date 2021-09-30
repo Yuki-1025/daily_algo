@@ -6,6 +6,7 @@
 // input : two sorted linked lists
 // output: one sorted linked list
 // edge cases: two nulls => return null; one of them is null => return only the other list
+// O (m+n)
 
 var mergeTwoLists = function(l1, l2) {
   // handle edge cases
