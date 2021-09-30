@@ -12,6 +12,8 @@
 // input: array
 // output: sorted array
 
+// O(n * log n)
+// 应用：more preferred on arrays
 var quicksort = function (array) {
   // base case / edge case
   if (array.length <= 1) {

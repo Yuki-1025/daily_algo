@@ -100,11 +100,12 @@
 //3. merge sorted halves
 //4. return the result of merge
 //O(n * log n)
+// 应用：sort on linked list
 var mergeSort = function(array) {
   var start = 0;
   var end = array.length - 1;
   if (start < end) {
-    var mid = Math.floor((end - start)/2);
+    var mid = Math.floor(array.length/2);
     let left = mergeSort(array.slice(0, mid + 1));//left
     let right = mergeSort(array.slice(mid + 1)); //right
     return merge(left, right);
