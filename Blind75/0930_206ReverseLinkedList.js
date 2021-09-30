@@ -5,6 +5,7 @@
 // input: linked list
 // output: linked list (in reversed order)
 // edge case: null => null; [1] => [1];
+// complexity: O n
 
 /**
  * Definition for singly-linked list.
@@ -32,8 +33,8 @@ var reverseList = function(head) {
   arr.push(current.val);
   // create a new linked list
   // iterate through arr in reversed order
-  var newHead = new ListNode(arr[arr.length - 1]);
-  var newCurrent = newHead;
+  var newHead = new ListNode(arr[arr.length - 1]); // create a new LL
+  var newCurrent = newHead;// the new LL needs a new pointer
   for (let i = arr.length - 2; i >= 0; i --) {
       newCurrent.next = new ListNode(arr[i]);
       newCurrent = newCurrent.next;
