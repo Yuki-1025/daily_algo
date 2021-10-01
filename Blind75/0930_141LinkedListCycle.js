@@ -7,7 +7,7 @@
 // input : a linked list
 // output: true / false
 // edge : [] => false
-
+//O(n)
 // runner technique 快慢指针
 var hasCycle = function(head) {
   //edge case

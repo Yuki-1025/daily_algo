@@ -20,15 +20,15 @@
  */
 var reverseList = function(head) {
   if (head == null || head.next == null) {
-      return head;
+    return head;
   }
   // declare an array to store values
   var arr = [];
   // iterate through linked list
   var current = head;
   while(current.next != null) {
-      arr.push(current.val);
-      current = current.next;
+    arr.push(current.val);
+    current = current.next;
   }
   arr.push(current.val);
   // create a new linked list
@@ -36,8 +36,8 @@ var reverseList = function(head) {
   var newHead = new ListNode(arr[arr.length - 1]); // create a new LL
   var newCurrent = newHead;// the new LL needs a new pointer
   for (let i = arr.length - 2; i >= 0; i --) {
-      newCurrent.next = new ListNode(arr[i]);
-      newCurrent = newCurrent.next;
+    newCurrent.next = new ListNode(arr[i]);
+    newCurrent = newCurrent.next;
   }
   return newHead;
 };
