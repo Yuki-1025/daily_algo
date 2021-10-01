@@ -8,3 +8,20 @@
 // output: true / false
 // edge : [] => false
 
+// runner technique 快慢指针
+var hasCycle = function(head) {
+  //edge case
+  if (head == null) {
+      return false;
+  }
+  var slow = head;
+  var fast = head;
+  while (fast.next != null && fast.next.next != null) {//只check fast即可
+      slow = slow.next;
+      fast = fast.next.next;
+      if (slow == fast) {
+          return true;
+      }
+  }
+  return false;
+};
