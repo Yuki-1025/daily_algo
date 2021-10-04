@@ -6,40 +6,44 @@
 // output: array
 // edge cases: [] => []; [[]] => [];
 
-var spiralOrder = function(matrix) {
-  var result = [];
-  // var rowMax = matrix.length;
-  // var colMax = matrix[0].length;
-  // var round = Math.floor((Math.min(rowMax, colMax) + 1) / 2);
+/*
+Time complexity =  O(M * N) where M is the number of rows and N is the number of cols
+Space complexity = O(1) as we're only using pointers and result array is not considered as extra space
 
-  var roundScan = (input) => {
-      if (input.length === 1) {
-          result = result.concat(input);
-          return result;
-      }
-      var row = 0, col = 0;
-      while (row < input.length && col < input[0].length) {
-          if (row === 0 && col < input[0].length - 1) {
-              result.push(input[row][col]);
-              col ++;
-          }
-          else if (col === input[0].length - 1 && row < input.length - 1) {
-              result.push(input[row][col]);
-              row ++;
-          }
-          else if (col < input[0].length && row === input.length - 1 && col > 0) {
-              result.push(input[row][col]);
-              col --;
-          }
-          else if (col === 0 && row < input.length - 1 && row > 0) {
-              result.push(input[row][col]);
-              row --;
-          }
-          else if ( col === 0 && row === 0) {
-              console.log('RESULT ', result)
-              return result;
-          }
-      }
+The idea is to traverse the matrix in "right, down, left, up" directions order,
+while keeping track and updating 2 variables "edgeCol" and "edgeRow" as the visited rows and columns (borders)
+*/
+
+var spiralOrder = function(matrix) {
+  let r = matrix.length, c = matrix[0].length, result = [];
+  let count = 0, total = r * c;
+  let edgeCol = edgeRow = 0;
+
+  while (count < total) {
+    for (let j = edgeCol; j < c - edgeCol; j++) {
+      if (count < total) { result.push(matrix[edgeRow][j]); count++; }
+      else { break; }
+    }
+
+    for (let i = edgeRow + 1, j = c - 1 - edgeCol; i < r - edgeRow; i++) {
+      if (count < total) { result.push(matrix[i][j]); count++; }
+      else { break; }
+    }
+
+    edgeRow++;
+
+    for (let j = c - 2 - edgeCol, i = r - edgeRow; j >= edgeCol; j--) {
+      if (count < total) { result.push(matrix[i][j]); count++; }
+      else { break; }
+    }
+
+    for (let i = r - 1 - edgeRow; i >= edgeRow; i--) {
+      if (count < total) { result.push(matrix[i][edgeCol]); count++; }
+      else { break; }
+    }
+
+    edgeCol++;
   }
-  roundScan(matrix);
+
+  return result;
 };
