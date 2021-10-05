@@ -30,6 +30,7 @@ var exist = function(board, word) {
   const helper = (n, row, col) => {
       if (n === word.length) {
           result = true;
+          return;
       }
       if (n === 0) {
           for (let i = 0; i < board.length; i ++) {
