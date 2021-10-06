@@ -16,6 +16,55 @@ var insert = function(intervals, newInterval) {
   if (intervals.length === 0) {
       return [newInterval];
   }
+  if (newInterval[1] < intervals[0][0]) {
+      intervals.unshift(newInterval);
+      return intervals;
+  }
+  if (newInterval[0] > intervals[intervals.length - 1][1]) {
+      intervals.push(newInterval);
+      return intervals;
+  }
+  var output = [], needMerge = false;
+  // find insertion position
+  for (let i = 0; i < intervals.length; i ++) {
+      if (newInterval[0] <= intervals[i][1] && newInterval[1] >= intervals[i][0]) {
+          newInterval = checkMerge(newInterval, intervals[i]);
+          needMerge = true;
+      }
+      else if (newInterval[0] > intervals[i][1] && (!intervals[i+1] || newInterval[1] < intervals[i+1][0])) {
+          output.push(intervals[i]);
+          output.push(newInterval);
+      }
+      else {
+          if (needMerge) {
+              output.push(newInterval);
+              needMerge = false;
+          }
+          output.push(intervals[i]);
+      }
+  }
+  if (needMerge) {
+      output.push(newInterval);
+      needMerge = false;
+  }
+  return output;
+};
+
+
+const checkMerge = function(in1, in2) {
+  let min = Math.min(in1[0], in2[0]);
+  let max = Math.max(in1[1], in2[1]);
+  return [min, max];
+}
+
+
+
+
+var insert = function(intervals, newInterval) {
+  // edge case
+  if (intervals.length === 0) {
+      return [newInterval];
+  }
   // if (newInterval[1] < intervals[0][0]) {
   //     intervals.unshift(newInterval);
   // }
