@@ -5,6 +5,32 @@
 // output: array of k most frequent integers
 // edge case: [1,2,1,2,5], 1 => return the first most frequent one
 
+//
+var topKFrequent = function(nums, k) {
+  // loop through nums, store count in obj
+  var count = {};
+  for (let i = 0; i < nums.length; i ++) {
+      if (count[nums[i]] === undefined) {
+          count[nums[i]] = 1
+      } else {
+          count[nums[i]] ++;
+      }
+  }
+  // loop through count, get a sorted array based on count
+  var arr = Object.entries(count);
+
+  arr = arr.sort((a, b) => {
+      return b[1] - a[1];
+  })
+  var result = [];
+  var topK = arr.slice(0, k);
+  topK.forEach((el) => {
+      result.push(Number.parseInt(el[0]));
+  })
+
+  return result;
+};
+
 //complexity O (n^k)
 var topKFrequent = function(nums, k) {
   // loop through nums, store count in obj
