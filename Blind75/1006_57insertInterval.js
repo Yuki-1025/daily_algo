@@ -10,6 +10,7 @@
 
 // input : array of intervals, single interval
 // output: array of intervals
+//O n
 
 var insert = function(intervals, newInterval) {
   // edge case
