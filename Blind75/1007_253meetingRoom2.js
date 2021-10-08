@@ -22,7 +22,7 @@ const findRooms = (intervals) => {
   var prev = intervals[0], room = 1, current;
   for (let i = 1; i < intervals.length; i ++) {
     current = intervals[i];
-    //if overlapped
+    //if overlapped, open a new room
     if (current[0] < prev[1]) {
       room ++;
       if (current[1] < prev[1]) {
