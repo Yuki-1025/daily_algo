@@ -11,6 +11,9 @@
 // Explanation: 11 = 5 + 5 + 1
 // Input: coins = [2], amount = 3
 // Output: -1
+// ALGO/SOLUTION: https://algodaily.com/challenges/the-coin-change-problem
+
+// Bottom Up DP: iteration
 var coinChange = function(coins, amount) {
   // need sort first, coin must be in increasing order
   coins.sort((a, b) => { return a - b; })
@@ -28,7 +31,6 @@ var coinChange = function(coins, amount) {
       }
     }
   })
-    //console.log('MATRIX ', matrix);
   // fill in other possible coin combination with coin count, leaving impossible amount infinity
   for (let row = 1; row < matrix.length; row ++) {
     for (let col = 1; col < amount + 1; col ++) {
@@ -44,8 +46,25 @@ var coinChange = function(coins, amount) {
       }
     }
   }
-    //console.log('MATRIX ', matrix);
+
   var output = matrix[matrix.length - 1][amount];
   return output === Infinity? -1 : output;
 }
 
+
+// METHOD II : RECURSION
+function coinChange(coins, amount) {
+  // Each memo[i] is the least amount of coins
+  // that can make the value equal to the index value.
+  const memo = Array(amount + 1).fill(Infinity);
+  memo[0] = 0;
+
+  for (let i = 1; i <= amount; i++) {
+    for (const coin of coins) {
+      if (i - coin >= 0) {
+        memo[i] = Math.min(memo[i], memo[i - coin] + 1);
+      }
+    }
+  }
+  return memo[amount] === Infinity ? -1 : memo[amount];
+}
