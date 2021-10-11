@@ -23,19 +23,36 @@
 // exention -> exection (replace 'n' with 'c')
 // exection -> execution (insert 'u')
 
+//Levenshtein Distance
+
 var minDistance = function(word1, word2) {
   if (!word1.length && !word2.length) { return 0; }
   if (!word1.length || !word2.length) {
       return word1.length || word2.length;
   }
-  // find the longest overlapped strings
-  var overlap = [];
-  for (let start = 0; start < word2.length; start++) {
-      for (let end = word2.length - 1; end >= start; end --) {
-          if (word1.indexOf(word2.substring(start, end + 1)) !== -1) {
-              overlap.push(end + 1 - start); // push the length of overlapped part
-          }
+  // create a matrix to store intermediate result;
+  var memo = Array(word1.length + 1).fill(0).map((row) => {
+      return Array(word2.length + 1).fill(0);
+  })
+  //
+  memo.forEach((row, i) => {
+      row[0] = i;
+  })
+  for (let j = 0; j < memo[0].length; j ++) {
+      memo[0][j] = j;
+  }
+  //console.log(memo);
+  // calcalate each empty cell based on its adjacent cells
+  for (let row = 1; row < memo.length; row ++) {
+      for (let col = 1; col < memo[0].length; col ++) {
+          let a = memo[row-1][col] + 1;
+          let b = memo[row][col-1] + 1;
+          let c = memo[row-1][col-1]; // replacement
+          if (word1[row - 1] !== word2[col - 1]) { c++ ;} // if letters are the same, no need replace
+          memo[row][col] = Math.min(a, b, c)
       }
   }
+  //console.log(memo);
+  return memo[word1.length][word2.length];
 
 };
