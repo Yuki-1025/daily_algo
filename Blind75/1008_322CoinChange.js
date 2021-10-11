@@ -11,33 +11,41 @@
 // Explanation: 11 = 5 + 5 + 1
 // Input: coins = [2], amount = 3
 // Output: -1
-
 var coinChange = function(coins, amount) {
-  var memos = {};
-
-  const helper = (coins, amount) => {
-      if (amount === 0) { return 0; }
-
-      if (coins.length === 1) {
-          if (amount % coins[0] === 0) {
-              return amount / coins[0]
-          } else {
-              return -1;
-          }
+  // need sort first, coin must be in increasing order
+  coins.sort((a, b) => { return a - b; })
+  // create a matrix to store intermediate results
+  var matrix = coins.map((coin) => {
+    return new Array(amount + 1).fill(Infinity);
+  })
+  // i: coin index, j: amount;
+  //for amount = 0, all no of coin should be 0
+  matrix.forEach((row, i) => {
+    row[0] = 0;
+    for (let j = 0; j < amount + 1; j ++) {
+      if (j % coins[i] === 0) {
+        row[j] = j / coins[i]; //填上所有整数倍面值
       }
-      for (let i = 0; i < coins.length; i ++) {
-          if (amount === coins[i]) {
-              return 1;
+    }
+  })
+    //console.log('MATRIX ', matrix);
+  // fill in other possible coin combination with coin count, leaving impossible amount infinity
+  for (let row = 1; row < matrix.length; row ++) {
+    for (let col = 1; col < amount + 1; col ++) {
+      if (matrix[row][col] === Infinity) {
+        let max = Math.floor(col / coins[row]);
+        var count = matrix[row - 1][col - max*coins[row]] + max;
+        for (let k = 0; k < max; k ++) {
+          if ((matrix[row - 1][col - k*coins[row]] + k) < count) {
+            count = (matrix[row - 1][col - k*coins[row]] + k);
           }
-          //else if () {}
+        }
+        matrix[row][col] =  count;
       }
-      if (!memos[amount]) {
-          memos[amount] = 0;
-          for (let j = 0; j < coins.length; j ++) {
-              memos[amount] += helper(coins, amount - coins[j]);
-          }
-          return memos[amount];
-      }
+    }
   }
-  return helper(coins, amount);
-};
+    //console.log('MATRIX ', matrix);
+  var output = matrix[matrix.length - 1][amount];
+  return output === Infinity? -1 : output;
+}
+
