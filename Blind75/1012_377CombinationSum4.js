@@ -21,8 +21,20 @@
 // constraints: all non-negative values
 // edge case: target number is smaller than any nums in given array.=> return 0;
 
-// STAIRS CLIMBING PROBLEM or backtracking
-
+// COIN CHANGE METHOD or backtracking
+var combinationSum4 = function(nums, target) {
+  const memo = Array(target + 1).fill(0);
+  for (let i = 1; i <= target; i ++) {
+      for (let j = 0; j < nums.length; j ++) {
+          if (i - nums[j] === 0) {
+              memo[i] ++;
+          } else if (i - nums[j] > 0) {
+              memo[i] += memo[i-nums[j]]
+          }
+      }
+  }
+  return memo[target];
+};
 
 // backtracking
 var combinationSum4 = function(nums, target) {
