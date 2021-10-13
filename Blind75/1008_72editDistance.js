@@ -42,7 +42,7 @@ var minDistance = function(word1, word2) {
       memo[0][j] = j;
   }
   //console.log(memo);
-  // calcalate each empty cell based on its adjacent cells
+  // calculate each empty cell based on its adjacent cells
   for (let row = 1; row < memo.length; row ++) {
       for (let col = 1; col < memo[0].length; col ++) {
           let a = memo[row-1][col] + 1;
