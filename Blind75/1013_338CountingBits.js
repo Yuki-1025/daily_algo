@@ -18,7 +18,25 @@
 // 4 --> 100
 // 5 --> 101
 
-// STRING METHOD: use toString(2): 二进制string
+// SOLUTION I: BIT MANIPULATION
+var countBits = function(n) {
+  var output = [];
+  for (let i = 0; i <= n; i ++) {
+      output.push(checkOnes(i));
+  }
+  return output;
+};
+
+const checkOnes = (num) => {
+  var count = 0;
+  while (num !== 0) {
+      count += num & 1;
+      num = num >>> 1
+  }
+  return count;
+}
+
+// SOLUTION II: STRING METHOD: use toString(2): 二进制string
 const checkOne = (str) => {
   var count = 0;
   for (let i = 0; i < str.length; i ++) {
