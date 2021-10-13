@@ -14,7 +14,7 @@
 // Input: target = 11, nums = [1,1,1,1,1,1,1,1]
 // Output: 0
 
-// TWO POINTERS O(nlogn)
+// TWO POINTERS O(n)
 var minSubArrayLen = function(target, nums) {
     var left = 0, right = 0;
     var sum = nums[0];
