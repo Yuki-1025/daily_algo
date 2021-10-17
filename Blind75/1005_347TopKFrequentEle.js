@@ -5,7 +5,7 @@
 // output: array of k most frequent integers
 // edge case: [1,2,1,2,5], 1 => return the first most frequent one
 
-//
+// O(n * log n)
 var topKFrequent = function(nums, k) {
   // loop through nums, store count in obj
   var count = {};
