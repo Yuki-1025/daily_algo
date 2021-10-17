@@ -17,32 +17,49 @@
 // Input: amount = 3, coins = [2]
 // Output: 0
 // Explanation: the amount of 3 cannot be made up just with coins of 2.
+
 var change = function(amount, coins) {
-  coins.sort((a, b) => { return a - b; });
-  var matrix = coins.map((coin) => {
-      return Array(amount + 1).fill(0);
-  })
-  matrix.forEach((row, i) => {
-      row.forEach((col, j) => {
-          if (j !== 0 &&j % coins[i] === 0) {
-              row[j] = 1;
-          }
-      })
-  })
-  for (let row = 1; row < coins.length; row ++) {
-      for (let col = 1; col <= amount; col ++) {
-          let max = Math.floor(col / coins[row]);
-          let m = col/coins[row] === max? max - 1: max;
-          for (let k = 1; k <= m; k ++) {
-              matrix[row][col] += matrix[row - 1][col - k * coins[row]];
-              //matrix[row][col] += matrix[row -1][col];
+  const memo = Array(amount + 1).fill(0);
+  //if amount = 0, return 1
+  memo[0] = 1;
+  for (let j = 0; j < coins.length; j ++) {
+      for (let i = 1; i <= amount; i ++) {
+          if (i - coins[j] === 0) {
+              memo[i] ++;
+          } else if (i > coins[j]) {
+              memo[i] += memo[i - coins[j]];
           }
       }
   }
-  //console.log(matrix)
-  var count = 0;
-  for (let i = 0; i < coins.length; i ++) {
-      count += matrix[i][amount];
-  }
-  return count;
+  return memo[amount];
 };
+
+// var change = function(amount, coins) {
+//   coins.sort((a, b) => { return a - b; });
+//   var matrix = coins.map((coin) => {
+//       return Array(amount + 1).fill(0);
+//   })
+//   matrix.forEach((row, i) => {
+//       row.forEach((col, j) => {
+//           if (j !== 0 &&j % coins[i] === 0) {
+//               row[j] = 1;
+//           }
+//       })
+//   })
+//   for (let row = 1; row < coins.length; row ++) {
+//       for (let col = 1; col <= amount; col ++) {
+//           let max = Math.floor(col / coins[row]);
+//           let m = col/coins[row] === max? max - 1: max;
+//           for (let k = 1; k <= m; k ++) {
+//               matrix[row][col] += matrix[row - 1][col - k * coins[row]];
+//               //matrix[row][col] += matrix[row -1][col];
+//           }
+//       }
+//   }
+//   //console.log(matrix)
+//   var count = 0;
+//   for (let i = 0; i < coins.length; i ++) {
+//       count += matrix[i][amount];
+//   }
+//   return count;
+// };
