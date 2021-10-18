@@ -10,14 +10,52 @@
 // Example 3:
 // Input: s = "a"
 // Output: "a"
-// Example 4:
-// Input: s = "ac"
-// Output: "a"
 
-// dynamic programming
+// dynamic programming O(n^2)
+var longestPalindrome = function(s) {
+  // edge case
+  if (s.length <= 1) {
+      return s;
+  }
+  // create a 2-D matrix to store intermediate results
+  var memo = Array(s.length).fill(0).map((row) => {
+      return Array(s.length).fill(0);
+  });
+  // fill in base cases
+    // one letter
+  var max = 1, output = s[0];
+  memo.forEach((row, i) => {
+    row.forEach((col, j) => {
+        if (i === j) {
+            row[j] = 1;
+        }
+    })
+  });
+    // two adjacent letters
+  for (let i = 0; i < s.length - 1; i++) {
+    if(s[i] === s[i+1]) {
+        memo[i][i+1] = 1;
+        max = 2;
+        output = s.slice(i, i + 2);
+    }
+  }
+  // handle length >=3
+  for (let k = 2; k < s.length - 1; k ++) {
+    for (let start = 0; start < s.length - k; start++) {
+      let end = start + k;
+      memo[start][end] = memo[start + 1][end - 1] && s[start] === s[end];
+      if (memo[start][end]) {
+          if (k + 1 > max) {
+              max = k+1;
+              output = s.slice(start, end + 1);
+          }
+      }
+    }
+  }
+  return output;
+}
 
-
-//=======brutal force O(n^2)=====
+//=======brutal force O(n^3)====================================
 var longestPalindrome = function(s) {
   var result = '', max = 0;
   for (let i = 0; i < s.length; i++) {
