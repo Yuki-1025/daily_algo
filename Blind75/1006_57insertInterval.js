@@ -13,8 +13,40 @@
 
 // input : array of intervals, single interval
 // output: array of intervals
-//O n
 
+// O(n) insert witj merge (Q56)
+var insert = function(intervals, newInterval) {
+    if (intervals.length === 0) {
+        return [newInterval];
+    }
+    // find correct postion to insert first
+    //var pos;
+    if (newInterval[0] <= intervals[0][0]) {
+        intervals.unshift(newInterval);
+        //pos = 0;
+    }
+    for (let i = 0; i < intervals.length; i++) {
+        if (intervals[i][0] <= newInterval[0] && (!intervals[i+1] || intervals[i+1][0] > newInterval[0]) ) {
+            intervals.splice(i+1, 0, newInterval);
+            //pos = i+1;
+            break;
+        }
+    }
+    // start merge
+    var output = [intervals[0]], lastone;
+      for (let i = 1; i < intervals.length; i++) {
+          lastone = output[output.length - 1];
+          if (intervals[i][0] > lastone[1]) {
+              output.push(intervals[i]);
+          } else {
+              let merged = [lastone[0], Math.max(lastone[1], intervals[i][1])];
+              output[output.length - 1] = merged;
+          }
+      }
+      return output;
+}
+
+//O n =======Method ii ===========================================================
 var insert = function(intervals, newInterval) {
   // edge case
   if (intervals.length === 0) {
