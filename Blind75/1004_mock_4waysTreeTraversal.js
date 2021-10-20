@@ -3,6 +3,12 @@
  // post-order traversal: 5, 6, 2, 7, 8, 3, 1
  // level-order traversal: 1,2,3,5,6,7,8
 
+function TreeNode(val, left, right) {
+  this.val = (val===undefined ? 0 : val)
+  this.left = (left===undefined ? null : left)
+  this.right = (right===undefined ? null : right)
+}
+
 function inOrder (root) {
   // base case
  if (root == null) { return; }
