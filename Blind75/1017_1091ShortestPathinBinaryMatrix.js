@@ -51,3 +51,37 @@ var shortestPathBinaryMatrix = function(grid) {
 var findAdjacent = ([row, col]) => {
   return [[row-1, col], [row-1, col+1], [row, col+1], [row+1, col+1], [row+1, col], [row+1, col-1], [row, col-1], [row-1, col-1]];
 }
+
+
+// try another way but exceed time limit
+var shortestPathBinaryMatrix = function(grid) {
+    var len = grid.length;
+    // edge cases
+    if (len === 1) { return 1; }
+    if (grid[0][0] || grid[len - 1][len - 1]) {
+        return -1;
+     }
+    // traverse the graph using BFS
+    var counter = 1;
+    grid[0][0] = counter;
+    var q = [[0, 0]];
+    var nextQ = [];
+    while (q.length > 0) {
+        let curr = q.shift();
+        grid[curr[0]][curr[1]] = counter;
+        let adjacents = findAdjacent(curr);
+        for (let adj of adjacents) {
+            if (grid[adj[0]] && grid[adj[1]] && !grid[adj[0]][adj[1]]) {
+                nextQ.push(adj);
+            }
+        }
+        if (q.length === 0) {
+            if (grid[len - 1][len - 1]) { return counter;}
+            counter ++;
+            q = [...nextQ];
+            nextQ = [];
+        }
+    }
+    // if no path found
+    return -1;
+}
