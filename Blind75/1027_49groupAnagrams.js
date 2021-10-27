@@ -8,6 +8,20 @@
 // Input: strs = [""]
 // Output: [[""]]
 
+// MUCH Easier solution: using MAP/OBJECT
+// O(n)
+var groupAnagrams = function(strs) {
+  var map = {};
+  for (let i = 0; i < strs.length; i ++) {
+      let sorted = strs[i].split('').sort().join('');
+      if (!map[sorted]) {
+          map[sorted] = [];
+      }
+      map[sorted].push(strs[i]);
+  }
+  return Object.values(map);
+};
+
 //for the worst case O(n^2)
 var groupAnagrams = function(strs) {
   var visited = new Array(strs.length).fill(0);
