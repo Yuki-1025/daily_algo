@@ -48,3 +48,19 @@ var countSubstrings = function(s) {
   }
   return output;
 };
+
+// brutal force is very slow==============================================
+var countSubstrings = function(s) {
+  var count = 0;
+  for (let start = 0; start < s.length; start++) {
+      for (let end = start; end < s.length; end ++) {
+          if (isPalindrome(s.slice(start, end + 1))) {
+              count ++;
+          }
+      }
+  }
+  return count;
+}
+var isPalindrome = (str) => {
+  return str === str.split('').reverse().join('');
+}
