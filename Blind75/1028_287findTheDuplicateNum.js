@@ -21,34 +21,23 @@ var findDuplicate = function(nums) {
 };
 
 // best solution: slow and fast pointer
-var findDuplicate = function(nums) {
-  /*Cycle-Detection*/
-  let slow=nums[0];
-  let fast=nums[nums[0]];
-  while(slow!=fast){
-      slow=nums[slow];//1 step
-      fast=nums[nums[fast]];//2 step
+const findDuplicate = nums => {
+  let slow = nums[0]
+  let fast = nums[0]
+  // Find the intersection point of the two runners.
+  do {
+    slow = nums[slow]
+    fast = nums[nums[fast]]
+  } while (slow !== fast)
+  // Find the "entrance" to the cycle.
+  slow = nums[0]
+  while (slow !== fast) {
+    slow = nums[slow]
+    fast = nums[fast]
   }
-  /*Cycle Length Calculation*/
-  slow=nums[slow];
-  let len=1;
-  while(slow!=fast){
-      slow=nums[slow];
-      len++;
-  }
-  /*move fast len steps forward from start*/
-  fast=nums[0];
-  while(len--){
-      fast=nums[fast];
-  }
-  /*Move slow and fast 1 step at time */
-  slow=nums[0];
-  while(slow!=fast){
-      slow=nums[slow];
-      fast=nums[fast];
-  }
-  return slow;
-};
+
+  return fast;
+}
 
 // CANNOT handle duplicate appear more than twice==========
 var findDuplicate = function(nums) {
@@ -64,3 +53,30 @@ var findDuplicate = function(nums) {
   }
   return sum - sumN;
 };
+
+// WRONG: exceed time
+var findDuplicate = function(nums) {
+  var slow = 0, fast = 0;
+  do {
+      slow ++;
+      fast += 2;
+      slow = correctP(slow, nums.length - 1);
+      fast = correctP(fast, nums.length - 1);
+      while (slow === fast) {
+          slow ++;
+          fast += 2;
+          slow = correctP(slow, nums.length - 1);
+          fast = correctP(fast, nums.length - 1);
+      }
+
+  } while (nums[slow] !== nums[fast])
+  return nums[slow];
+};
+
+var correctP = (pointer, n) => {
+  if (pointer <= n) {
+      return pointer;
+  } else {
+      return pointer % n - 1
+  }
+}
