@@ -2,8 +2,8 @@
 // 0's, and return the matrix.
 
 // You must do it in place.
-// complexity: O(mn);
 
+// BRUTAL FORCE --complexity: O(mn);
 var setZeroes = function(matrix) {
   // find zero positions
   var rows = new Set();

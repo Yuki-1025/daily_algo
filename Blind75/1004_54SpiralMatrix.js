@@ -15,35 +15,34 @@ while keeping track and updating 2 variables "edgeCol" and "edgeRow" as the visi
 */
 
 var spiralOrder = function(matrix) {
-  let r = matrix.length, c = matrix[0].length, result = [];
-  let count = 0, total = r * c;
-  let edgeCol = edgeRow = 0;
+  let firstRow = 0;
+  let lastRow = matrix.length - 1;
+  let firstCol = 0;
+  let lastCol = matrix[0].length - 1;
+  let result = [];
 
-  while (count < total) {
-    for (let j = edgeCol; j < c - edgeCol; j++) {
-      if (count < total) { result.push(matrix[edgeRow][j]); count++; }
-      else { break; }
-    }
+  while(firstRow <= lastRow && firstCol <= lastCol) {
+      for(let i = firstCol; i <= lastCol; i++) {
+          result.push(matrix[firstRow][i]);
+      }
+      firstRow++;
 
-    for (let i = edgeRow + 1, j = c - 1 - edgeCol; i < r - edgeRow; i++) {
-      if (count < total) { result.push(matrix[i][j]); count++; }
-      else { break; }
-    }
+      for(let i = firstRow; i <= lastRow; i++) {
+          result.push(matrix[i][lastCol]);
+      }
+      lastCol--;
 
-    edgeRow++;
+      if(lastRow < firstRow) break;
+      for(let i = lastCol; i >= firstCol; i--) {
+          result.push(matrix[lastRow][i]);
+      }
+      lastRow--;
 
-    for (let j = c - 2 - edgeCol, i = r - edgeRow; j >= edgeCol; j--) {
-      if (count < total) { result.push(matrix[i][j]); count++; }
-      else { break; }
-    }
-
-    for (let i = r - 1 - edgeRow; i >= edgeRow; i--) {
-      if (count < total) { result.push(matrix[i][edgeCol]); count++; }
-      else { break; }
-    }
-
-    edgeCol++;
+      if(lastCol < firstCol) break;
+      for(let i = lastRow; i >= firstRow; i--) {
+          result.push(matrix[i][firstCol]);
+      }
+      firstCol++;
   }
-
   return result;
 };
