@@ -36,3 +36,36 @@ var permute = function(nums) {
   return results;
 };
 
+// ==========Rewrite =========
+var permute = function(nums) {
+    var group = [];
+    var groups = [];
+    var isVisited = Array(nums.length).fill(false);
+
+    const pickOne = (n) => {
+        if (n === nums.length) {
+            groups.push(group.toString());
+            return;
+        }
+        if (n < nums.length) {
+            for (let i = 0; i < nums.length; i++) {
+                if (!isVisited[i]) {
+                    group.push(nums[i]);
+                    n++;
+                    isVisited[i] = true;
+                    pickOne(n);
+                    n--;
+                    group.pop();
+                    isVisited[i] = false;
+                }
+
+            }
+        }
+    }
+    pickOne(0);
+    groups.forEach((group, g) => {
+        groups[g] = group.split(',');
+    })
+    return groups;
+};
+
