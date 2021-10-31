@@ -15,7 +15,7 @@ var combinationSum = function(candidates, target) {
   const calculation = () => {
       // console.log(cb);
       if (sum === target) {
-          var sorted_cb = cb.slice();
+          var sorted_cb = cb.slice(); // make a copy of cb
           sorted_cb.sort();
           cbs.add(sorted_cb.toString());
           return;
