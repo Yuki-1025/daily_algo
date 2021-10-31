@@ -15,6 +15,14 @@
 // Output: no cycle
 // Explanation: There is no cycle in the linked list.
 
+/**
+ * Definition for singly-linked list.
+ */
+ function ListNode(val, next) {
+  this.val = (val===undefined ? 0 : val)
+  this.next = (next===undefined ? null : next)
+}
+
 var detectCycle = function(head) {
   // edge case
   if (head == null) {
