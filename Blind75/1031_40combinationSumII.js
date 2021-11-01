@@ -27,7 +27,7 @@ var combinationSum2 = function(candidates, target) {
       }
       if (sum > target) return;
       for (let i = start; i < candidates.length; i++) {
-              if (i > start && candidates[i] === candidates[i-1]) continue;
+              if (i > start && candidates[i] === candidates[i-1]) continue; //skip duplicated
               sum += candidates[i];
               group.push(candidates[i]);
               calculation(sum, i+1); // don't need maintain a visited matrix
