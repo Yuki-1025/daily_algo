@@ -107,3 +107,41 @@ var search = function(nums, target) {
       }
   }
 };
+//============ 11/01/21 ==========================
+var search = function(nums, target) {
+    var start = 0, end = nums.length - 1;
+    while (start <= end) {
+        let mid = Math.floor((start + end) / 2);
+        // mid is the target
+        if (nums[mid] === target) {
+            return mid;
+        }
+        // search left or right depends on the shape of nums
+        if (nums[mid] > nums[start]) { //including no rotation
+            if (target < nums[mid] && target >= nums[start]) {
+                end = mid - 1;
+            } else if (target > nums[mid] || target <= nums[end]) {
+                start = mid + 1;
+            } else {
+                return -1;
+            }
+        }
+        else if (nums[mid] < nums[start]) {
+            if (target > nums[mid] && target <= nums[end]) {
+                start = mid + 1;
+            } else if (target < nums[mid] || target >= nums[start]) {
+                end = mid - 1;
+            } else {
+                return -1;
+            }
+        }
+        else if (start === mid) { // for arr with 1 or 2 elements
+            if (target === nums[end]) {
+                return end;
+            } else {
+                return -1;
+            }
+        }
+    }
+    return -1;
+}
