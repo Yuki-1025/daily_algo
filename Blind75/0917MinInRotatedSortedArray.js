@@ -16,7 +16,32 @@
 // edge cases: []
 
 //O(log n)
+// TWO POINTERS 11/1
+var findMin = function(nums) {
+    // edge
+    if (nums.length === 1) return nums[0];
+    //if (nums.length)
+    // no rotation at all
+    if (nums[nums.length - 1] > nums[0]) return nums[0];
 
+    // 2 pointers
+    var start = 0, end = nums.length - 1;
+    while (start < end) {
+        let mid = Math.floor((start + end) / 2);
+        // mid is min
+        if (nums[mid] < nums[mid - 1]) {
+            return nums[mid];
+        } else if (nums[mid] > nums[mid+1]) {
+            return nums[mid + 1];
+        } else if (nums[mid] < nums[start]) {
+            end = mid - 1;
+        } else if (nums[mid] > nums[start]) {
+            start = mid + 1;
+        }
+    }
+}
+
+// RECURSION 9/20
 var findMin = function(nums) {
   // edge cases
   if (nums.length === 1) {
