@@ -8,6 +8,9 @@
 // It is guaranteed that the number of unique combinations that sum up to target is less than 150
 //combinations for the given input.
 
+Input: candidates = [2,3,5], target = 8
+Output: [[2,2,2,2],[2,3,3],[3,5]]
+
 var combinationSum = function(candidates, target) {
   var cbs = new Set();
   var cb = [];
