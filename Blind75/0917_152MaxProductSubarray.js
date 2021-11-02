@@ -25,7 +25,8 @@ var maxProduct = function(nums) {
   return result;
 };
 
-//O(n)
+//O(n) DYNAMIC PROGRAMMING : maintain 2 arrays to record the maxProduct and minProduct on each
+// individually positions
 var maxProduct = function(nums) {
   var biggest = [], smallest = [];
   biggest[0] = nums[0];
