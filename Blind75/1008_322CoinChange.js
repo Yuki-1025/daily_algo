@@ -13,6 +13,24 @@
 // Output: -1
 // ALGO/SOLUTION: https://algodaily.com/challenges/the-coin-change-problem
 
+// SIMPLIFIED SOLUTION
+var coinChange = function(coins, amount) {
+  // Each memo[i] is the least amount of coins
+  // that can make the value equal to the index value.
+  var memo = Array(amount + 1).fill(Infinity);
+  memo[0] = 0; // bc no coins => 0 amount
+  for (let i = 1; i <= amount; i ++) {
+      for (let coin of coins) {
+          if (i - coin === 0) {
+              memo[i] = Math.min(memo[i], 1);
+          } else if (i > coin) {
+              memo[i] = Math.min(memo[i], 1 + memo[i-coin]);
+          }
+      }
+  }
+  return memo[amount] === Infinity? -1 : memo[amount];
+}
+
 // Bottom Up DP: iteration
 var coinChange = function(coins, amount) {
   // need sort first, coin must be in increasing order
