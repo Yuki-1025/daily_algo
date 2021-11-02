@@ -21,19 +21,22 @@
 // constraints: all non-negative values
 // edge case: target number is smaller than any nums in given array.=> return 0;
 
-// COIN CHANGE METHOD or backtracking
+// COIN CHANGE METHOD [DP] or backtracking
 var combinationSum4 = function(nums, target) {
-  const memo = Array(target + 1).fill(0);
-  for (let i = 1; i <= target; i ++) {
-      for (let j = 0; j < nums.length; j ++) {
-          if (i - nums[j] === 0) {
-              memo[i] ++;
-          } else if (i - nums[j] > 0) {
-              memo[i] += memo[i-nums[j]]
-          }
-      }
-  }
-  return memo[target];
+    // create a matrix to store intermediate results
+    var memo = Array(target + 1).fill(0);
+    // memo[0] = 0, bc no combination sum up to 0
+    // now fill in memo[1-target];
+    for (let i = 1; i <= target; i ++) {
+        for (let num of nums) {
+            if (i - num === 0) {
+                memo[i] ++;
+            } else if (i - num > 0) {
+                memo[i] += memo[i-num];
+            }
+        }
+    }
+    return memo[target];
 };
 
 // backtracking
