@@ -29,7 +29,7 @@ Lockers.prototype.fill = function (package) {
 }
 
 Lockers.prototype.pickUp = function(code) {
-  if (!this.storage[code]) throw Error;// wrong code message
+  if (!this.storage[code]) throw new Error('invalid code');// wrong code message
   this.storage[code].isFilled = false;//empty the locker
 }
 //Packages

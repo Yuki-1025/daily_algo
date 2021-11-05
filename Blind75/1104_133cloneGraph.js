@@ -26,7 +26,7 @@ var cloneGraph = function(node) {
       if (node.neighbors && node.neighbors.length > 0) {
           for (let n of node.neighbors) {
             //已有neighbor节点的 直接push节点，没有的话，新建节点push后 再以新节点为root开始dfs
-              if (visited[n.val]) {visited[node.val].neighbors.push(visited[n.val]);}
+              if (visited[n.val]) {visited[node.val].neighbors.push(visited[n.val]);}// if yes, stop recursion
               else {
                   visited[n.val] = new Node(n.val);
                   visited[node.val].neighbors.push(visited[n.val]);
@@ -37,4 +37,28 @@ var cloneGraph = function(node) {
   }
   dfs(node);
   return visited[1];
+};
+
+// BFS
+var cloneGraph = function(node) {
+  //edge
+  if (node === null) return null;
+  var q = [node];
+  var copy = {};
+  copy[node.val] = new Node(node.val);
+  while (q.length > 0) {
+      let curr = q.shift();
+      if (!copy[curr.val].neighbors.length) {
+          if (curr.neighbors && curr.neighbors.length > 0) {
+              for (let n of curr.neighbors) {
+                  if (!copy[n.val]) {
+                      copy[n.val] = new Node(n.val);
+                  }
+                  copy[curr.val].neighbors.push(copy[n.val]);
+                  q.push(n);
+              }
+          }
+      }
+  }
+  return copy[1];
 };
