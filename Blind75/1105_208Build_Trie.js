@@ -25,6 +25,57 @@ trie.startsWith("app"); // return True
 trie.insert("app");
 trie.search("app");     // return True
 
+//A REAL TRIE IN TREE FORMAT
+var Node = function(char) {
+  this.val = char;
+  this.children = {};
+  this.end = false;
+}
+
+var Trie = function() {
+  this.root = new Node();
+};
+
+/**
+* @param {string} word
+* @return {void}
+*/
+Trie.prototype.insert = function(word) {
+  let curr = this.root; // remain root val as empty
+  for (let i = 0; i < word.length; i++) {
+      if (!curr.children[word[i]]) curr.children[word[i]] = new Node(word[i]);
+      curr = curr.children[word[i]];
+  }
+  curr.end = true;
+};
+
+/**
+* @param {string} word
+* @return {boolean}
+*/
+Trie.prototype.search = function(word) {
+  let pointer = this.root;
+  for (let i = 0; i < word.length; i++) {
+      if (!pointer.children[word[i]]) return false;
+      pointer = pointer.children[word[i]];
+  }
+  return pointer.end;
+};
+
+/**
+* @param {string} prefix
+* @return {boolean}
+*/
+Trie.prototype.startsWith = function(prefix) {
+  let pointer = this.root;
+  for (let char of prefix) {
+      if (!pointer.children[char]) return false;
+      pointer = pointer.children[char];
+  }
+  return true;
+};
+
+// TOO SLOW AND NOT A TREE====================================================================
 var Trie = function() {
   this.storage = {};
 };
