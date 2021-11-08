@@ -9,3 +9,19 @@
 Input: root = [-10,9,20,null,null,15,7]
 Output: 42
 Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
+
+var maxPathSum = function(root) {
+  var maxSum = -Infinity;
+  var dfs = (node) => {
+      if (node == null) return 0;
+      var left = dfs(node.left);
+      var right = dfs(node.right);
+      maxSum = Math.max(maxSum, left + node.val + right);
+      let oneSide = node.val + Math.max(left, right);
+      if (oneSide < 0) oneSide = 0;// if the sum of a branch is less than 0,
+      //we'd better give up the whole branch, bc it will only decrease our sum
+      return oneSide;
+  }
+  dfs(root);
+  return maxSum;
+};
