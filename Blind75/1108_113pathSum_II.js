@@ -21,13 +21,14 @@ var pathSum = function(root, targetSum) {
       if (node.right) dfs(node.right, sum, temp);
       if (!node.left && !node.right) {
           if (sum === targetSum) {
-              output.push(temp.toString())
+              //output.push(temp.toString())
+              output.push([...temp]) // STORE A COPY
           }
       }
       temp.pop();
   }
   dfs(root, 0, []);
-  var res = [];
-  for (let o of output) res.push(o.split(','));
-  return res;
+  // var res = [];
+  // for (let o of output) res.push(o.split(','));
+  return output;
 };
