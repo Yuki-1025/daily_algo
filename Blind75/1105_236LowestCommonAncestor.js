@@ -33,3 +33,11 @@ var inSameTree = (node, p, q) => {
   //console.log(pIn && qIn);
   return pIn && qIn;
 }
+
+// BETTER AND QUICKER SOLUTION
+var lowestCommonAncestor = function(root, p, q) {
+  if(!root || root === p || root === q) return root;
+  const left = lowestCommonAncestor(root.left, p, q);
+  const right = lowestCommonAncestor(root.right, p, q);
+  return left && right ? root : left || right;
+};
