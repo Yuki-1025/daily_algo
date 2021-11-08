@@ -5,6 +5,9 @@
 // output: array of k most frequent integers
 // edge case: [1,2,1,2,5], 1 => return the first most frequent one
 
+// we can USE HEAP to reduce complexity to O(n*log k)
+// use Python for HEAP
+
 // O(n * log n)
 var topKFrequent = function(nums, k) {
   // loop through nums, store count in obj
@@ -31,7 +34,7 @@ var topKFrequent = function(nums, k) {
   return result;
 };
 
-//complexity O (n^k)
+//complexity O (n^k)===================================================================
 var topKFrequent = function(nums, k) {
   // loop through nums, store count in obj
   var count = {};
