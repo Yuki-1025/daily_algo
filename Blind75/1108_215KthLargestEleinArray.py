@@ -7,7 +7,7 @@ Output: 5
 
 Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
 Output: 4
-
+# O (nlogk)
 class Solution(object):
     def findKthLargest(self, nums, k):
         """
@@ -16,11 +16,11 @@ class Solution(object):
         :rtype: int
         """
         # use a minheap to store top k
-        heap = [];
+        heap = []
         for num in nums:
             if len(heap) < k:
                 heapq.heappush(heap, num)
             elif num > heap[0] :
                 heapq.heappop(heap)
                 heapq.heappush(heap, num)
-        return heap[0];
+        return heap[0]
