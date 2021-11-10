@@ -24,6 +24,9 @@
 // medianFinder.addNum(3);    // arr[1, 2, 3]
 // medianFinder.findMedian(); // return 2.0
 
+
+// METHOD II: use both MIN-HEAP AND MAX-HEAP
+
 // METHOD I: each time add new num, use binary search to insert into the increasing order
 var MedianFinder = function() {
   this.storage = [];

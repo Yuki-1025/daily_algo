@@ -8,6 +8,7 @@
 // Explanation: There are a total of 2 courses to take.
 // To take course 1 you should have finished course 0. So it is possible.
 
+// BFS
 var canFinish = function(numCourses, prerequisites) {
   // build relationship in map
   var map = {};
@@ -43,7 +44,38 @@ var canFinish = function(numCourses, prerequisites) {
   return ordered.length === numCourses;
 };
 
-//======DFS runtime exceeded version=======
+// rewrite BFS: reverse order, starting from the basic courses =======================================
+var canFinish = function(numCourses, prerequisites) {
+    var indegree = Array(numCourses).fill(0);
+    var map = {};
+    for (let pair of prerequisites) {
+        indegree[pair[0]] ++;
+        if (!map[pair[1]]) map[pair[1]] = [];
+        map[pair[1]].push(pair[0]);
+    }
+    //console.log(map);
+    var q = [];
+    for (let i = 0; i < indegree.length; i++) {
+        if (!indegree[i]) {
+            q.push(i)
+        }
+    }
+    var ordered = [];
+    if (!q.length) return false;
+    while (q.length) {
+        let curr = q.shift();
+        ordered.push(curr);
+        if (map[curr]) {
+            for (let c of map[curr]) {
+                indegree[c] --;
+                if (!indegree[c]) q.push(c);
+            }
+        }
+    }
+    return ordered.length === numCourses;
+}
+
+//======DFS runtime exceeded version===============================================
 var canFinish = function(numCourses, prerequisites) {
   // build relationship in map
   var map = {};
