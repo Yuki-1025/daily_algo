@@ -20,6 +20,7 @@ Input: board =
 ,[".",".",".",".","8",".",".","7","9"]]
 Output: true
 
+// time complexity: O(1)
 var isValidSudoku = function(board) {
   // check every row
   for (let row = 0; row < board.length; row ++) {
