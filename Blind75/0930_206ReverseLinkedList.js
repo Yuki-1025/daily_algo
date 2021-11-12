@@ -18,6 +18,19 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+// USE iteration to mutate current LL
+var reverseList = function(head) {
+  // => reverse all arrows
+  var last = null;
+  while (head !== null) {
+      let nextOne = head.next; // store head.next
+      head.next = last; // change head.next to last (reverse direction)
+      last = head; //move last to head's position
+      head = nextOne; // move head to next position
+  }
+  return last;
+}
+
 var reverseList = function(head) {
   if (head == null || head.next == null) {
     return head;
