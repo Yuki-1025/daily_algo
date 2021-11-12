@@ -18,7 +18,8 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-// USE iteration to mutate current LL
+// use ITERATION to mutate current LL
+// O(n), 扫一遍
 var reverseList = function(head) {
   // => reverse all arrows
   var last = null;
@@ -31,6 +32,24 @@ var reverseList = function(head) {
   return last;
 }
 
+// RECURSION
+var reverseList = function(head) {
+  if (head && head.next) {
+    // divide LL into Head and the rest, and switch their positions
+    let rest = reverseList(head.next);
+    // move head to the rest.next
+    head.next.next = head;
+    // remove the previous relation: head.next
+    head.next = null;
+    // return rest, bc rest is the new LL head
+    return rest;
+  } else {
+    // base case
+    return head;
+  }
+}
+
+// CREATE A NEW LL (not inplace)
 var reverseList = function(head) {
   if (head == null || head.next == null) {
     return head;
