@@ -14,6 +14,7 @@
 // input: ["TicTacToe","move","move","move"]
 // output : [[2],[0,0,2],[1,1,1],[0,1,2]]
 
+// O(n)
 var TicTacToe = function(n) {
   this.win = n;
   // to store moves
