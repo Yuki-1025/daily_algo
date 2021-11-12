@@ -17,7 +17,8 @@ Lockers.prototype.fill = function (package) {
   for (let l of Object.values(this.storage)) {
     if (!l.isFilled) availableSizes.push([l.code, l.size]);
   }
-  availableSizes.sort((a, b) => a - b);
+  // sort available lockers by their sizes
+  availableSizes.sort((a, b) => a[1] - b[1]);
   // binary search or iteration to find the minimum doable size
   for (let i = 0; i < availableSizes.length; i++) {
     if (availableSizes[i][1] >= minSize) {
