@@ -5,6 +5,24 @@
 
 // The average value of a tree is the sum of its values, divided by the number of nodes.
 
+// DFS O(n)
+var maximumAverageSubtree = function(root) {
+  var max = -Infinity;
+  var dfs = (root) => {
+      if (root == null) return [0, 0];
+      //if (!root.left && !root.right) return root.val;
+      let left = dfs(root.left);
+      let right = dfs(root.right);
+      let sum = root.val + left[0] + right[0];
+      let count = 1 + left[1] + right[1];
+      let currA = sum / count;
+      max = Math.max(max, currA);
+      return ([sum, count]);
+  }
+  dfs(root);
+  return max;
+};
+// BFS O(n^2)
 var maximumAverageSubtree = function(root) {
   if (root == null) return null;
   // traverse the tree
