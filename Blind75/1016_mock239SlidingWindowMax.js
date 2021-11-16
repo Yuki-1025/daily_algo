@@ -18,6 +18,35 @@
 // O(n)
 var maxSlidingWindow = function(nums, k) {
 	if (k === 1) { return nums; }
+	// declare a queue to store [1st_max, 2nd_max, 3nd_max, ...]
+	var q = [], res = [];
+	// push in the first ele and its position to get started
+	q.push([nums[0], 0]);
+	// start loop from index 1
+	for (let i = 1; i < nums.length; i ++) {
+			// first check if the 1st_max is out of the window range
+			if (q[0][1] <= i - k) q.shift();
+			// check if current num > 1st_max, which mean curr is the largest and newer than every ele in q,
+			// then we can just clear the whole q and only maintain curr
+			if (nums[i] > q[0][0]) {
+					q = [];
+					q.push([nums[i], i]);
+			} else { // if curr not larger, at least it's newer, we still need it in our q
+					// put curr in the proper position
+					while (nums[i] > q[q.length - 1][0]) {
+							q.pop();
+					}
+					q.push([nums[i], i]);
+			}
+			// starting from index i = k-1, we push the max into res
+			if (i >= k -1) res.push(q[0][0]);
+	}
+	return res;
+};
+
+// O(n)
+var maxSlidingWindow = function(nums, k) {
+	if (k === 1) { return nums; }
 	var q = [], output = [];
 	q.push([nums[0], 0]);
 	for (let i = 1; i < nums.length; i ++) {

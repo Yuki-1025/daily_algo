@@ -11,7 +11,7 @@
 // Output:
 //  1
 
-// USE MIN-HEAP
+// USE MIN-HEAP in JS
 var minMeetingRooms = function(intervals) {
   intervals.sort((a, b) => a[0] - b[0]);
 
