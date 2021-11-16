@@ -11,6 +11,28 @@
 // Output:
 //  1
 
+// USE MIN-HEAP
+var minMeetingRooms = function(intervals) {
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  var room = 1;
+  let last = intervals[0][1];
+  let lasts = new MinPriorityQueue();
+  lasts.enqueue(last);
+  for (let i = 1; i < intervals.length; i++) {
+      //console.log(lasts.front())
+      if (intervals[i][0] < lasts.front().priority) {
+          room ++;
+          lasts.enqueue(intervals[i][1]);
+      } else {
+          lasts.dequeue();
+          lasts.enqueue(intervals[i][1]);
+      }
+  }
+  return room;
+};
+
+//============WRONG ANSWER==========================================================
 const findRooms = (intervals) => {
   if (intervals.length === 1) {
     return 1;
