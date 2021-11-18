@@ -28,3 +28,25 @@ var merge = function(intervals) {
   }
   return output;
 };
+
+// slightly different SOLUTION:========================
+var merge = function(intervals) {
+    // edge
+    if (intervals.length <= 1) return intervals;
+    // sort based on start
+    intervals.sort((a, b) => a[0] - b[0]);
+    //
+    var last = intervals[0];
+    var res = [];
+    for (let i = 1; i < intervals.length; i++) {
+        let curr = intervals[i]
+        if (curr[0] <= last[1]) {
+            last[1] = Math.max(curr[1], last[1])
+        } else {
+            res.push(last);
+            last = curr;
+        }
+    }
+    res.push(last);
+    return res;
+}
