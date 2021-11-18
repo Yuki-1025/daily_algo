@@ -9,6 +9,34 @@
 // Output: 5
 // Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
 
+// OPTIMAL SOLUTION ==============================================================
+var ladderLength = function(beginWord, endWord, wordList) {
+  // edge: endword not exist
+  if (wordList.indexOf(endWord) === -1) return 0;
+  // BFS
+  var dict = new Set(wordList);
+
+  var q = [beginWord], level = 1, nextq = [];
+  while (q.length) {
+      let curr = q.shift();
+      if (curr === endWord) return level;
+      for (let i = 0; i < curr.length; i++) {
+          for (let letter = 0; letter < 26; letter ++) {
+              let newWord = curr.slice(0, i) + String.fromCharCode(letter + 97) + curr.slice(i+1);
+              if (dict.has(newWord)) {
+                  nextq.push(newWord);
+                  dict.delete(newWord)
+              }
+          }
+      }
+      if (!q.length) {
+          level ++;
+          q = nextq;
+          nextq = [];
+      }
+  }
+  return 0;
+};
 
 // CORRECT BUT RUNTIME EXCEED============================================================
 var ladderLength = function(beginWord, endWord, wordList) {
