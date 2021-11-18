@@ -7,6 +7,26 @@
 // Explanation: There are 6 substrings that have equal number of consecutive 1's and 0's: "0011",
 // "01", "1100", "10", "0011", and "01".
 
+// O(n)
+var countBinarySubstrings = function(s) {
+  var res = 0;
+  // try scan once then math
+  // use record to store all the starts of changing
+  var record = [0];
+  for (let i = 1 ; i < s.length; i++) {
+      if (s[i] !== s[i-1]) {
+          record.push(i);
+          //res ++;
+      }
+  }
+  record.push(s.length);
+  for (let j = 1; j < record.length -1; j++) {
+    // if 00111 we need +2, if 001, we need +1
+      res += Math.min(record[j] - record[j-1], record[j+1] - record[j])
+  }
+  return res;
+};
+
 //O(n^2)
 var countBinarySubstrings = function(s) {
   var res = 0;
