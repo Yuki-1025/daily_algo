@@ -5,6 +5,62 @@
 // Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]
 // Output: ["eat","oath"]
 
+// ====== use TRIE
+var findWords = function(board, words) {
+  // build a trie
+  var trie= {}, res = [];
+  for (let w of words) {
+      let curr = trie;
+      for (let ch of w) {
+          if (!curr[ch]) curr[ch] = {};
+          curr = curr[ch];
+      }
+      curr.end = w;
+  }
+  //console.log(trie);
+  // dfs helper func
+  var dfs = (row, col, node) => {
+      // already visited cell
+      if (!board[row][col]) return;
+      // no existing node in trie
+      if (!node[board[row][col]]) return;
+
+      if (node[board[row][col]].end) {
+          res.push(node[board[row][col]].end);
+          node[board[row][col]].end = null;//avoid duplicates
+      }
+      //node = node[board[row][col]];
+      // mark board[r][c] in case revisit
+      let temp = board[row][col];
+      board[row][col] = 0;
+      let neighbors = findAdjacent(row, col, board);
+      for (let [r, c] of neighbors) {
+          dfs(r, c, node[temp]);
+      }
+      board[row][col] = temp;
+  }
+  // loop through the entire board, find the 首字母
+  for (let r = 0; r < board.length; r ++) {
+      for (let c = 0; c < board[0].length; c++) {
+          // starting from the firs char to traverse
+          if (trie[board[r][c]]) dfs(r, c, trie);
+      }
+  }
+  return res;
+};
+
+var findAdjacent = (row, col, board) => {
+  let maxR = board.length - 1;
+  let maxC = board[0].length - 1;
+  var neighbors = [];
+  if (row - 1 >= 0) { neighbors.push([row - 1, col]); }
+  if (col - 1 >= 0) { neighbors.push([row, col - 1]); }
+  if (row + 1 <= maxR) { neighbors.push([row + 1, col]); }
+  if (col + 1 <= maxC) { neighbors.push([row, col + 1]); }
+  return neighbors;
+}
+
+
 // ORIGINAL BACKTRACKING --- slow but passed
 var findWords = function(board, words) {
   var res = [];
