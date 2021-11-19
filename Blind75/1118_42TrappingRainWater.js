@@ -6,7 +6,7 @@
 // Explanation: The above elevation map (black section) is represented by array
 //[0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
 
-//two pointers
+//two pointers O(n)
 var trap = function(height) {
   var left = 0, right = height.length - 1;
   var maxL = 0, maxR = 0;
