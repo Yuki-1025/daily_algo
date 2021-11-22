@@ -36,3 +36,57 @@ var suggestedProducts = function(products, searchWord) {
   return res;
 };
 
+// TRIE
+var suggestedProducts = function(products, searchWord) {
+  // build trie with products
+  var trie = {};
+  for (let p of products) {
+      let curr = trie;
+      for (let char of p) {
+          if (!curr[char]) curr[char] = {};
+          curr = curr[char];
+      }
+      curr.end = p;
+  }
+
+  var traverse = (node) => {
+      var ends = new Set();
+      var dfs = (node) => {
+          if (Object.keys(node).length === 1 && Object.keys(node)[0] === 'end') {
+              //console.log(node.end)
+              ends.add(node.end);
+              return;
+          }
+          if (node.end) {
+
+              ends.add(node.end);
+          }
+
+          for (let k in node) {
+              if (k !== 'end') {
+                  dfs(node[k]);
+              }
+          }
+      }
+      dfs(node);
+      let arr = [...ends].sort((a, b) => a.localeCompare(b)).slice(0,3);
+      return arr;
+  }
+
+  var res = [];
+  let currNode = trie;
+  for (let i = 0; i < searchWord.length; i++) {
+      if (currNode[searchWord[i]]) {
+          currNode = currNode[searchWord[i]];
+          //console.log(currNode)
+          res.push(traverse(currNode));
+      } else {
+          while (i < searchWord.length) {
+              res.push([]);
+              i++;
+          }
+          break;
+      }
+  }
+  return res;
+};
