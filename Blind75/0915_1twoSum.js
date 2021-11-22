@@ -22,27 +22,22 @@ var twoSum = function(nums, target) {
   }
 };
 
-//two pointers O(nlog n) =======need revision
+//two pointers O(nlog n) ==================================
 var twoSum = function(nums, target) {
-  var obj = {};
-  nums.forEach((num, i) => {
-    obj[num] = i;
-  })
-  // sort first
-  nums.sort((a, b) => {
-    return a - b;
-  });
-  var start = 0;
-  var end = nums.length - 1;
+  // store og postion
+  for (let i = 0; i < nums.length; i ++) {
+      let temp = nums[i];
+      nums[i] = [i, temp];
+  }
+  // sort nums
+  nums.sort((a, b) => a[1] - b[1]);
+  // two Pointers
+  var start = 0, end = nums.length - 1;
   while (start < end) {
-    let sum = nums[start] + nums[end];
-    if (sum === target) {
-      return [obj[nums[start]], obj[nums[end]]];
-    } else if (sum > target) {
-      end --;
-    } else {
-      start ++;
-    }
+      let sum = nums[start][1] + nums[end][1];
+      if (sum === target) return [nums[start][0], nums[end][0]];
+      if (sum > target) end --;
+      if (sum < target) start ++;
   }
 };
 
