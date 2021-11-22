@@ -9,7 +9,38 @@
 // (time[1] = 20, time[3] = 100): total duration 120
 // (time[1] = 20, time[4] = 40): total duration 60
 
-// Worst case O(nlog n)
+// O(n)
+var numPairsDivisibleBy60 = function(time) {
+  var res = 0;
+  // transform time to modulo of 60
+  var map = {};
+  for (let num of time) {
+      let mod = num % 60;
+      if (!map[mod]) map[mod] = 0;
+      map[mod] ++;
+  }
+  // filter out 30 and 0;
+  if (map[0]) {
+      res += map[0] * (map[0] - 1) /2;
+      delete map[0];
+  }
+  if (map[30]) {
+      res += map[30] * (map[30] - 1) /2;
+      delete map[30];
+  }
+
+  for (let key in map) {
+      let need = 60 - parseInt(key);
+      if (map[need]) {
+          res += map[key] * map[need];
+          delete map[need];
+      }
+  }
+
+  return res;
+};
+
+// for Worst case O(nlog n)===========================================
 var numPairsDivisibleBy60 = function(time) {
   var res = 0;
   // transform time to modulo of 60
