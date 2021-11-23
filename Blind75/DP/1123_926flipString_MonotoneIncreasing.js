@@ -12,6 +12,7 @@
 // Output: 2
 // Explanation: We flip to get 011111, or alternatively 000111.
 
+// O(n);
 var minFlipsMonoIncr = function(s) {
   // edge
   if (s.length < 2) return 0;
