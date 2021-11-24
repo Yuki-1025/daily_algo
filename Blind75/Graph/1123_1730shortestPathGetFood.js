@@ -14,7 +14,44 @@
 // Output: 3
 // Explanation: It takes 3 steps to reach the food.
 
-// Graph ========== RUN TIME EXCEED ===========================
+// MORE standard BFS
+var getFood = function(grid) {
+  // find me
+  var me = null;
+  var len = grid.length, wid = grid[0].length;
+  for (let r = 0; r < len; r ++) {
+      for (let c = 0; c < wid; c++) {
+          if (grid[r][c] === '*') {
+              me = [r, c, 0];
+              break;
+          }
+      }
+      if (me) break;
+  }
+  // from me, start BFS
+  var q = [me];
+  var dir = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  while (q.length) {
+      let [i, j, level] = q.shift();
+      //grid[i][j] = 'X'; if mark visited when visiting, it will have many repeated cells => runtime exceeds
+      for (let d of dir) {
+          let newR = i + d[0];
+          let newC = j + d[1];
+          if (checkAdjacent(newR, newC, len, wid, grid)) {
+              if (grid[newR][newC] === '#') return level + 1;
+              grid[newR][newC] = 'X';
+              q.push([newR, newC, level+1]);
+          }
+      }
+  }
+  return -1;
+};
+
+var checkAdjacent = (i, j, maxr, maxc, board) => {
+  return i >=0 && i < maxr && j >=0 && j < maxc && board[i][j] !== 'X';
+}
+
+// Graph ========== OK===========================
 var getFood = function(grid) {
   // find me
   var me = null;
@@ -30,33 +67,45 @@ var getFood = function(grid) {
   }
   // from me, start BFS
   var q = [me], nextq = [];
-  var level = 0;
-  while (q.length) {
+    var level = 0;
+    while (q.length) {
       let [i, j] = q.shift();
-      if(grid[i][j] === 'O') grid[i][j] = level;// exclude initial position
+      // if(grid[i][j] === 'O') grid[i][j] = level;// exclude initial position
       if (i-1 >= 0) {
           if (grid[i-1][j] === '#') return level + 1;
-          if (grid[i-1][j] === 'O') nextq.push([i-1, j]);
+          if (grid[i-1][j] === 'O') {
+              nextq.push([i-1, j]);
+              grid[i-1][j] = level+1;
+          }
       }
       if (i+1 < len) {
           if (grid[i+1][j] === '#') return level + 1;
-          if (grid[i+1][j] === 'O') nextq.push([i+1, j]);
+          if (grid[i+1][j] === 'O') {
+              nextq.push([i+1, j]);
+              grid[i+1][j] = level+1;
+          }
       }
       if (j-1 >= 0) {
           if (grid[i][j-1] === '#') return level + 1;
-          if (grid[i][j-1] === 'O') nextq.push([i, j-1]);
+          if (grid[i][j-1] === 'O') {
+              nextq.push([i, j-1]);
+              grid[i][j-1] = level+1;
+          }
       }
       if (j+1 < wid) {
           if (grid[i][j+1] === '#') return level + 1;
-          if (grid[i][j+1] === 'O') nextq.push([i, j+1]);
+          if (grid[i][j+1] === 'O') {
+              nextq.push([i, j+1]);
+              grid[i][j+1] = level+1;
+          }
       }
       // check if this level is over
       if (!q.length) {
           level ++;
-          q = [...nextq];
+          q = nextq;
           nextq = [];
-          console.log(level)
+          // console.log(grid);
       }
-  }
-  return -1;
+    }
+    return -1;
 };
