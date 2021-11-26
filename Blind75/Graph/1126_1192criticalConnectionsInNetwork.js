@@ -11,6 +11,44 @@
 // Input: n = 2, connections = [[0,1]]
 // Output: [[0,1]]
 
+An edge is a critical connection, if and only if it is not in a cycle.
+// DFS
+var criticalConnections = function(n, connections) {
+  // create graph: Array with each node as element
+  var graph = Array(n);
+  for (let i = 0; i < n; i++) {
+      graph[i] = {val: i, adj: [], rank: -Infinity, minR: Infinity};
+  }
+  for (let [i, j] of connections) {
+      graph[i].adj.push(j);
+      graph[j].adj.push(i);
+  }
+
+  var visited = Array(n).fill(0);
+  var res = [];
+  const dfs = (node, parent, rank) => {
+      // console.log(node, parent);
+      // visit node
+      node.rank = rank;
+      node.minR = rank; // by default minR = rank
+      visited[node.val] = 1;
+
+      // visit node's adj and update minR
+      for (let a of node.adj) {
+          if (a === parent) continue;// e.g 0既是1的parent也是child
+          if (visited[a]) {
+              node.minR = Math.min(node.minR, graph[a].minR);
+          } else {
+              node.minR = Math.min(node.minR, dfs(graph[a], node.val, rank+1))
+          }
+          if (node.rank < graph[a].minR) res.push([node.val, a]);
+      }
+      return node.minR;
+  }
+  dfs(graph[0], -1, 0);
+  return res;
+};
+
 // WORKABLE BUT RUNTIME EXCEED=====================================================================
 // start BFS from each node, the critical connect will be visited n times, others <n
 var criticalConnections = function(n, connections) {
