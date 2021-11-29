@@ -10,6 +10,7 @@
 // [0,0,1,1,1] using 1 swap.
 // The minimum is 1.
 
+// sliding window, compare the newly coming ele with the newly lost ele
 var minSwaps = function(data) {
   // count ones
   var k = countOnes(data);
